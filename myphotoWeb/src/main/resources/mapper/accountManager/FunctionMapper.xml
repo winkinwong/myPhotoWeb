@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kin.web.myphoto.pc.accountManager.mapper.FunctionMapper">
+
+    <select id="listFunctionNotInRoleId" resultType="com.kin.web.myphoto.pc.accountManager.entity.Function" parameterType="java.lang.Long">
+        select
+            function_id as functionId ,
+            function_name as functionName,
+            create_time as createTime,
+            update_time as updateTime
+        from
+            `function`
+        where
+            function_id not in (
+            select
+                function_id
+            from
+                role_function
+            where
+                role_id = #{roleId})
+    </select>
+</mapper>
